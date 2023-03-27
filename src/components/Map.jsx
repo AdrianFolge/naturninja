@@ -8,13 +8,9 @@ import { decode } from '@mapbox/polyline';
 import randomColor from 'randomcolor';
 const MAPBOX_TOKEN = "pk.eyJ1IjoiYWRyaWFuZmgiLCJhIjoiY2xmbWpqemR4MGM4MjQ0bnJoempobTE4byJ9.1w9_l2cCHgwDwqjnyZ-bmw"
 
-//const handleClick = (event) => {
-//    console.log(event.lngLat.lng);
-//    setStartPoint([event.lngLat.lng, event.lngLat.lat])
-//  };
-
 
 function Map({mapData}) {
+  console.log(mapData)
     const [routes, setRoutes] = useState([]);
     useEffect(() => {
       const fetchRoutes = async () => {

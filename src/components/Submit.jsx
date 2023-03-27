@@ -6,12 +6,13 @@ import { CloudinaryContext, Image } from "cloudinary-react";
 
 
 
-function SubmitForm() {
+function SubmitForm({ startpoint, endpoint}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [imagePublicId, setImagePublicId] = useState("");
   const [format, setFormat] = useState("");
+  const [imgPath, setImgPath] = useState("");
 
 
   const handleSubmit = async (event) => {
@@ -26,13 +27,27 @@ function SubmitForm() {
           "https://api.cloudinary.com/v1_1/dweewlchz/image/upload",
           formData
         );
-        setImagePublicId(response.data.public_id.toString());
-        setFormat(response.data.format.toString())
+        setImagePublicId(response.data.public_id);
+        setFormat(response.data.format);
+        setImgPath(response.data.url);
+        const doc = {
+          _type: "hikes",
+          img_path: response.data.url,
+          title: title,
+          overview: description,
+          release_date: "06.01.2020",
+          upvotes: 0,
+          startpoint: startpoint,
+          endpoint: endpoint
+      }
+      client.create(doc).then(res => {
+          console.log(`Hike was created, document ID is ${res._id}`)
+      })
+      console.log(doc);
       } catch (error) {
         console.log(error);
       }
     }
-
     // Submit the form data to the server
     const formData = {
       title,
@@ -41,17 +56,6 @@ function SubmitForm() {
     };
     // Make an HTTP request to submit the form data to the server
     // ...
-    const doc = {
-        _type: "hikes",
-        img_path: `https://res.cloudinary.com/dweewlchz/image/upload/${imagePublicId}.${format}`,
-        title: title,
-        overview: description,
-        release_date: "06.01.2020"
-    }
-    client.create(doc).then(res => {
-        console.log(`Hike was created, document ID is ${res._id}`)
-    })
-    console.log(doc);
 
   };
 

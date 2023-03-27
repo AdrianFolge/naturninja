@@ -8,8 +8,8 @@ export default function Card({ result }) {
       <Link href={`/movie/${result._id}`}>
         <Image
           src={result.img_path}
-          width={500}
-          height={300}
+          width={100}
+          height={100}
           className="sm:rounded-t-lg group-hover:opacity-80 transition-opacity duration-200"
           style={{
             maxWidth: "100%",
