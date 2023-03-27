@@ -10,7 +10,6 @@ const MAPBOX_TOKEN = "pk.eyJ1IjoiYWRyaWFuZmgiLCJhIjoiY2xmbWpqemR4MGM4MjQ0bnJoemp
 
 
 function Map({mapData}) {
-  console.log(mapData)
     const [routes, setRoutes] = useState([]);
     useEffect(() => {
       const fetchRoutes = async () => {
@@ -22,6 +21,8 @@ function Map({mapData}) {
         const responses = await Promise.all(requests);
         const routeData = responses.map(response => {
           const data = response.data;
+          const totalDistance = data.routes.reduce((acc, route) => acc + route.distance, 0);
+          console.log(totalDistance);
           const polyline = data.routes[0].geometry;
           const decodedPolyline = decode(polyline);
           const geojson = {

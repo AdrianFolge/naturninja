@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { client } from '../../../../lib/client';
 import Map from "@/components/Map";
+import RiPinDistanceLine from "react-icons/ri"
 
 async function getHike(hikeId) {
   const query = `*[_id == "${hikeId}"]`;
@@ -12,6 +13,7 @@ export default async function MoviePage({ params }) {
   const hikeId = params.id;
   const hikeResult = await getHike(hikeId);
   const hike = hikeResult[0]
+  console.log(hike.length)
   return (
     <div className="w-full">
       <div className="p-4 md:pt-8 flex flex-col md:flex-row items-center content-center max-w-6xl mx-auto md:space-x-6">
@@ -43,6 +45,12 @@ export default async function MoviePage({ params }) {
           <p className="mb-3">
             <span className="font-semibold mr-1">Rating:</span>
             {hike.upvotes}
+          </p>
+          <p className="mb-3">
+            <span className="font-semibold mr-1">
+             Lengde: 
+            </span>
+            {(hike.length/1000).toFixed(1)} km
           </p>
         </div>
       </div>

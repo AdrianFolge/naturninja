@@ -13,10 +13,6 @@ export default function RootLayout({ children }) {
           {/* Header */}
           <Header />
 
-          {/* Navbar */}
-
-          <Navbar />
-
           {/* SearchBox */}
 
           <SearchBox />

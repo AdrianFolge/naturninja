@@ -12,6 +12,7 @@ function New() {
   const [startPoint, setStartPoint] = useState([10.400212886496497, 63.41629757764976]);
   const [endPoint, setEndPoint] = useState([10.600212886496497, 63.51629757764976]);
   const [route, setRoute] = useState(null);
+  const [totalDistance, setTotalDistance] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +20,7 @@ function New() {
         `https://api.mapbox.com/directions/v5/mapbox/cycling/${startPoint};${endPoint}?access_token=${MAPBOX_TOKEN}`
       );
       const data = response.data;
+      setTotalDistance(data.routes.reduce((acc, route) => acc + route.distance, 0));
       const polyline = data.routes[0].geometry;
         const decodedPolyline = decode(polyline);
         const geojson = {
@@ -43,7 +45,7 @@ function New() {
   return (
     <div className="max-w-6xl mx-auto space-y-4 p-4 grid grid-cols-2">
         <div>
-            <SubmitForm startpoint={startPoint} endpoint={endPoint}/>
+            <SubmitForm startpoint={startPoint} endpoint={endPoint} distance={totalDistance}/>
         </div>
         <div>
         <div className="flex justify-center lg:text-lg py-2 px-2 rounded-lg" style={{ position: 'relative', height: '400px'}}>

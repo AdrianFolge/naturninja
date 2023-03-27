@@ -6,7 +6,7 @@ import { CloudinaryContext, Image } from "cloudinary-react";
 
 
 
-function SubmitForm({ startpoint, endpoint}) {
+function SubmitForm({ startpoint, endpoint, distance}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
@@ -38,7 +38,8 @@ function SubmitForm({ startpoint, endpoint}) {
           release_date: "06.01.2020",
           upvotes: 0,
           startpoint: startpoint,
-          endpoint: endpoint
+          endpoint: endpoint,
+          length: (distance/1000).toFixed(1)
       }
       client.create(doc).then(res => {
           console.log(`Hike was created, document ID is ${res._id}`)

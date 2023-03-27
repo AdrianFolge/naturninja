@@ -41,6 +41,11 @@ export default {
             title: 'End Point',
             type: 'array',
             of: [{type: 'number'}]
-        }
+        },
+        {
+            name: 'length',
+            title: 'Length',
+            type: 'number'
+        },
     ]
 }
