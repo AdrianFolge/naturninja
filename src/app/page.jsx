@@ -3,14 +3,19 @@
 // for more info "https://github.com/vercel/next.js/issues/43077"
 
 export const dynamic = "force-dynamic"; // this is the fix
-
+import { client } from '../../lib/client';
 import Results from "@/components/Results";
+import Map from "@/components/Map";
 
 const API_KEY = process.env.API_KEY;
 
-export default async function Home({ searchParams }) {
-  const genre = searchParams.genre || "fetchTrending";
 
+
+export default async function Home({ searchParams }) {
+  const query = '*[_type == "hikes"]';
+  const dbHikes  = await client.fetch(query);
+  
+  const genre = searchParams.genre || "fetchTrending";
   const res = await fetch(
     `https://api.themoviedb.org/3/${
       genre === "fetchTopRated" ? "movie/top_rated" : "trending/all/week"
@@ -28,7 +33,10 @@ export default async function Home({ searchParams }) {
 
   return (
     <div>
-      <Results results={results} />
+      <div className='max-w-6xl mx-auto space-y-4 p-4'>
+        <Map mapData={dbHikes}/>
+      </div>
+      <Results results={dbHikes} />
     </div>
   );
 }
