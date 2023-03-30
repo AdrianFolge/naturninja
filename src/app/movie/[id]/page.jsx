@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { client } from '../../../../lib/client';
 import Map from "@/components/Map";
-import RiPinDistanceLine from "react-icons/ri"
+import CommentSection from "@/components/CommentSections";
+
+
 
 async function getHike(hikeId) {
   const query = `*[_id == "${hikeId}"]`;
@@ -56,6 +58,9 @@ export default async function MoviePage({ params }) {
       </div>
       <div className="max-w-6xl mx-auto space-y-4 p-4">
         <Map mapData={hikeResult} />
+      </div>
+      <div className="items-center content-center max-w-6xl mx-auto">
+        <CommentSection hikeID={hikeId}/>
       </div>
     </div>
   );

@@ -1,2 +1,3 @@
 import hikes from "./hikes"
-export const schemaTypes = [hikes]
+import comment from "./comment"
+export const schemaTypes = [hikes, comment]
