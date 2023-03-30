@@ -47,5 +47,10 @@ export default {
             title: 'Length',
             type: 'number'
         },
+        {
+            name: 'mail',
+            title: 'Mail',
+            type: 'string'
+        }
     ]
 }

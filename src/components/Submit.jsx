@@ -2,6 +2,8 @@ import { useState } from "react";
 import { client } from 'lib/client';
 import axios from "axios";
 import { CloudinaryContext, Image } from "cloudinary-react";
+import { useSession } from "next-auth/react"
+
 
 
 
@@ -13,7 +15,8 @@ function SubmitForm({ startpoint, endpoint, distance}) {
   const [imagePublicId, setImagePublicId] = useState("");
   const [format, setFormat] = useState("");
   const [imgPath, setImgPath] = useState("");
-
+  const { data: session } = useSession()
+  console.log(session)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,7 +42,8 @@ function SubmitForm({ startpoint, endpoint, distance}) {
           upvotes: 0,
           startpoint: startpoint,
           endpoint: endpoint,
-          length: (distance/1000).toFixed(1)
+          length: Number((distance/1000).toFixed(1)),
+          mail: session.user.email
       }
       client.create(doc).then(res => {
           console.log(`Hike was created, document ID is ${res._id}`)
