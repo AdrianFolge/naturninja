@@ -1,22 +1,41 @@
-import { AiFillGithub, AiOutlineTwitter, AiFillInstagram, AiFillCopyrightCircle } from "react-icons/ai";
-import Link from "next/link";
-
-
-
-export default function Footer() {
+function Footer() {
   return (
-    <div className="flex justify-between mx-2 max-w-6xl sm:mx-auto items-center bg-gray-700 my-4 py-2 mb-0 text-gray-200 px-2">
-      <div className="flex space-x-2 items-center">
-        <p>NaturNinja</p> 
-        <AiFillCopyrightCircle />
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-y-10 px-32 py-14 bg-gray-700 text-gray-100">
+          <div className="space-y-4 text-xs text-gray-800">
+              <h5 className="font-bold">ABOUT</h5>
+              <p>How Airbnb works</p>
+              <p>Newsroom</p>
+              <p>Investors</p>
+              <p>Airbnb plus</p>
+              <p>Airbnb Luxe</p>
+          </div>
+          <div className="space-y-4 text-xs text-gray-800">
+              <h5 className="font-bold">ABOUT</h5>
+              <p>How Airbnb works</p>
+              <p>Newsroom</p>
+              <p>Investors</p>
+              <p>Airbnb plus</p>
+              <p>Airbnb Luxe</p>
+          </div>
+          <div className="space-y-4 text-xs text-gray-800">
+              <h5 className="font-bold">ABOUT</h5>
+              <p>How Airbnb works</p>
+              <p>Newsroom</p>
+              <p>Investors</p>
+              <p>Airbnb plus</p>
+              <p>Airbnb Luxe</p>
+          </div>
+          <div className="space-y-4 text-xs text-gray-800">
+              <h5 className="font-bold">ABOUT</h5>
+              <p>How Airbnb works</p>
+              <p>Newsroom</p>
+              <p>Investors</p>
+              <p>Airbnb plus</p>
+              <p>Airbnb Luxe</p>
+          </div>
+
       </div>
-      <div className="flex items-center space-x-5">
-        <AiFillGithub />
-        <AiFillInstagram />
-        <Link href="/">
-          <AiOutlineTwitter />
-        </Link>
-      </div>
-    </div>
-  );
+  )
 }
+
+export default Footer

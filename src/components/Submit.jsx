@@ -16,7 +16,7 @@ function SubmitForm({ startpoint, endpoint, distance}) {
   const [format, setFormat] = useState("");
   const [imgPath, setImgPath] = useState("");
   const { data: session } = useSession()
-  console.log(session)
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();

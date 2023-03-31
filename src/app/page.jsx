@@ -3,9 +3,11 @@
 // for more info "https://github.com/vercel/next.js/issues/43077"
 export const dynamic = "force-dynamic"; // this is the fix
 import { client } from '../../lib/client';
-import Results from "@/components/Results";
-import FrontPageComp from '@/components/FrontPageComp';
 import UserResults from '@/components/UserResults';
+import Map from '@/components/Map';
+import ResultsSmallcard from '@/components/ResultsSmallcard';
+import LargeCard from '@/components/LargeCard';
+import LargeCardExplore from '@/components/LargeCardExplore';
 
 const API_KEY = process.env.API_KEY;
 
@@ -17,9 +19,19 @@ export default async function Home({ searchParams }) {
 
   return (
     <div>
-        <FrontPageComp dbHikes={dbHikes}/>
-        <h1 className='max-w-6xl mx-auto py-4'>DINE TURER</h1>
+        <div className='max-w-6xl mx-auto py-4'>
+          <Map mapData={dbHikes}/>
+        </div>
+        <div className='max-w-6xl mx-auto py-4'>
+          <h2 className="text-4xl font-semibold pb-5">Explore nearby</h2>
+          <ResultsSmallcard results={dbHikes} />
+        </div>
+        <h2 className="text-4xl font-semibold pb-5 max-w-6xl mx-auto py-4">Your hikes</h2>
         <UserResults results={dbHikes}/>
+        <div className='max-w-6xl mx-auto py-4 grid grid-cols-2 space-x-2'>
+          <LargeCard link={"/new"} image={"/banner_image.jpeg"}/>
+          <LargeCardExplore  link={"/find"} image={"/explore.jpeg"}/>
+        </div>
     </div>
   );
 }

@@ -15,6 +15,7 @@ export default async function MoviePage({ params }) {
   const hikeId = params.id;
   const hikeResult = await getHike(hikeId);
   const hike = hikeResult[0]
+  const date = hike._createdAt.slice(0, 10)
   console.log(hike.length)
   return (
     <div className="w-full">
@@ -42,7 +43,7 @@ export default async function MoviePage({ params }) {
           </p>
           <p className="mb-3">
             <span className="font-semibold mr-1">Date Released:</span>
-            {hike.release_date}
+            {date}
           </p>
           <p className="mb-3">
             <span className="font-semibold mr-1">Rating:</span>
@@ -52,7 +53,7 @@ export default async function MoviePage({ params }) {
             <span className="font-semibold mr-1">
              Lengde: 
             </span>
-            {(hike.length/1000).toFixed(1)} km
+            {hike.length} km
           </p>
         </div>
       </div>
