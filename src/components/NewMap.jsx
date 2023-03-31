@@ -43,8 +43,8 @@ function NewMap({mapData}) {
       <div className="flex justify-center lg:text-lg py-2 px-2" style={{ position: 'relative', height: '100vh', borderRadius: "15px"}}>
         <ReactMapGL
           initialViewState={{
-            latitude: mapData[0].startpoint[1],
-            longitude: mapData[0].startpoint[0],
+            latitude: mapData[0].startpoint[1] || 5.11,
+            longitude: mapData[0].startpoint[0] || 5.11,
             zoom: 8
           }}
           mapboxAccessToken={MAPBOX_TOKEN}
