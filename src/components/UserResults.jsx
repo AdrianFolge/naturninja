@@ -21,7 +21,7 @@ function UserResults({results}) {
     }
 
     return (
-        <div>
+        <div className='max-w-6xl mx-auto py-4'>
           <p>empty</p>
         </div>
     )
