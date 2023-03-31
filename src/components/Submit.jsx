@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { client } from 'lib/client';
 import axios from "axios";
 import { CloudinaryContext, Image } from "cloudinary-react";
 import { useSession } from "next-auth/react"
 
-
-
-
+const MAPBOX_TOKEN = "pk.eyJ1IjoiYWRyaWFuZmgiLCJhIjoiY2xmbWpqemR4MGM4MjQ0bnJoempobTE4byJ9.1w9_l2cCHgwDwqjnyZ-bmw"
 
 function SubmitForm({ startpoint, endpoint, distance}) {
   const [title, setTitle] = useState("");
@@ -16,6 +14,17 @@ function SubmitForm({ startpoint, endpoint, distance}) {
   const [format, setFormat] = useState("");
   const [imgPath, setImgPath] = useState("");
   const { data: session } = useSession()
+  const [city, setCity] = useState('');
+
+  useEffect(() => {
+    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${startpoint[0]},${startpoint[1]}.json?access_token=${MAPBOX_TOKEN}&types=place&limit=1`)
+      .then(response => response.json())
+      .then(data => {
+        const cityName = data.features[0].text;
+        setCity(cityName);
+      });
+  }, [startpoint[0], startpoint[1]]);
+
 
 
   const handleSubmit = async (event) => {
@@ -43,7 +52,8 @@ function SubmitForm({ startpoint, endpoint, distance}) {
           startpoint: startpoint,
           endpoint: endpoint,
           length: Number((distance/1000).toFixed(1)),
-          mail: session.user.email
+          mail: session.user.email,
+          city: city
       }
       client.create(doc).then(res => {
           console.log(`Hike was created, document ID is ${res._id}`)

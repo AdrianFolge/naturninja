@@ -51,6 +51,12 @@ export default {
             name: 'mail',
             title: 'Mail',
             type: 'string'
-        }
+        },
+        {
+            name: 'city',
+            title: 'City',
+            type: 'string'
+        },
+
     ]
 }

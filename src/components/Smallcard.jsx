@@ -15,7 +15,7 @@ function Smallcard({result}) {
 
                 <div>
                     <h2>{result.title}</h2>
-                    <h3 className="text-gray-500">{result.length}km</h3>
+                    <h3 className="text-gray-500">{result.city}</h3>
                 </div>
             </Link>
             
