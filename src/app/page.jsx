@@ -28,7 +28,7 @@ export default async function Home({ searchParams }) {
         </div>
         <h2 className="text-4xl font-semibold pb-5 max-w-6xl mx-auto py-4">Your hikes</h2>
         <UserResults results={dbHikes}/>
-        <div className='max-w-6xl mx-auto py-4 grid grid-cols-2 space-x-2'>
+        <div className='max-w-6xl mx-auto py-4 space-x-2 grid grid-cols-1 gap-2 sm:grid-cols-2 px-2'>
           <LargeCard link={"/new"} image={"/banner_image.jpeg"}/>
           <LargeCardExplore  link={"/find"} image={"/explore.jpeg"}/>
         </div>
