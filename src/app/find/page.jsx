@@ -5,10 +5,15 @@ import FindCard from "@/components/FindCard"
 import { client } from '../../../lib/client';
 import MapDB from "@/components/MapNoDB";
 
+const MAPBOX_TOKEN = "pk.eyJ1IjoiYWRyaWFuZmgiLCJhIjoiY2xmbWpqemR4MGM4MjQ0bnJoempobTE4byJ9.1w9_l2cCHgwDwqjnyZ-bmw"
+
 export default function Page() {
+  const [cityName, setCityName] = useState('');
+  const [coordinates, setCoordinates] = useState(null);
   const [query, setQuery] = useState('*[_type == "hikes"]');
   const [dbHikes, setDbHikes] = useState([]);
   const [search, setSearch] = useState("");
+  const [startpoint, setStartpoint] = useState("");
 
   const coords = {
     latitude: 37.773972,
@@ -25,9 +30,24 @@ export default function Page() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!search) return;
-    //router.push(`/search/${search}`);
+    //router.push(`/search/${search}`)
+    setCityName(search)
     setQuery(`*[_type == "hikes" && city == "${search}"]`);
   }
+  useEffect(() => {
+    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(cityName)}.json?access_token=${MAPBOX_TOKEN}&types=place&limit=1`)
+      .then(response => response.json())
+      .then(data => {
+        const coordinates = data.features[0].center;
+        const latitude = coordinates[1];
+        const longitude = coordinates[0];
+        setStartpoint({
+          latitude: latitude,
+          longitude: longitude
+        });
+      });
+  }, [cityName]);
+  console.log(startpoint)
 
   return (
     <div className='max-w-6xl mx-auto py-4'>
@@ -67,7 +87,7 @@ export default function Page() {
             </div>
       ): (
         <div className='h-screen'>
-            <MapDB coords={coords} />
+            <MapDB coords={startpoint} />
         </div>
       )}
       </div>
