@@ -10,6 +10,8 @@ const MAPBOX_TOKEN = "pk.eyJ1IjoiYWRyaWFuZmgiLCJhIjoiY2xmbWpqemR4MGM4MjQ0bnJoemp
 
 
 function MapDB({coords}) {
+ 
+  
   
     return (
       <div className="flex justify-center lg:text-lg py-2 px-2" style={{ position: 'relative', height: '100vh', borderRadius: "15px"}}>

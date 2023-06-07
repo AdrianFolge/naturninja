@@ -15,18 +15,6 @@ export default function Page() {
   const [search, setSearch] = useState("");
   const [startpoint, setStartpoint] = useState("");
 
-  const coords = {
-    latitude: 37.773972,
-    longitude: -122.431297
-  }
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await client.fetch(query);
-      setDbHikes(result);
-    };
-    fetchData();
-  }, [query]);
-
   function handleSubmit(e) {
     e.preventDefault();
     if (!search) return;
@@ -34,20 +22,39 @@ export default function Page() {
     setCityName(search)
     setQuery(`*[_type == "hikes" && city == "${search}"]`);
   }
+
   useEffect(() => {
-    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(cityName)}.json?access_token=${MAPBOX_TOKEN}&types=place&limit=1`)
-      .then(response => response.json())
-      .then(data => {
-        const coordinates = data.features[0].center;
-        const latitude = coordinates[1];
-        const longitude = coordinates[0];
-        setStartpoint({
-          latitude: latitude,
-          longitude: longitude
-        });
+    const fetchData = async () => {
+      const result = await client.fetch(query);
+      setDbHikes(result);
+    };
+  
+    const fetchCoordinates = async () => {
+      if (!cityName) {
+        setStartpoint('');
+        return;
+      }
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          cityName
+        )}.json?access_token=${MAPBOX_TOKEN}&types=place&limit=1`
+      );
+      const data = await response.json();
+      const coordinates = data.features[0].center;
+      const latitude = coordinates[1];
+      const longitude = coordinates[0];
+      setStartpoint({
+        latitude: latitude,
+        longitude: longitude
       });
-  }, [cityName]);
+    };
+  
+    fetchData();
+    fetchCoordinates();
+  }, [query, cityName, search]);
+
   console.log(startpoint)
+
 
   return (
     <div className='max-w-6xl mx-auto py-4'>
